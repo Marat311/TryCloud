@@ -50,6 +50,7 @@ public class CommonArea {
 
         WebElement module = Driver.getDriver().findElement(By.xpath("(//a[@aria-label = '"+moduleName+"'])[1]"));
         return module.isDisplayed();
+
     }
 
 //    public String getMainModuleText(String moduleName){

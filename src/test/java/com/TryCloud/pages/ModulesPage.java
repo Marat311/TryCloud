@@ -34,7 +34,7 @@ public class ModulesPage {
         BrowserUtil.explicitWait(By.xpath("//tr[@data-file='JamesBond']//a[@class='action action-menu permanent']"), 3);
         Actions actions = new Actions(Driver.getDriver());
         actions.moveToElement(actionIcon).click().perform();
-      //  actionIcon.click();
+
 
 
     }

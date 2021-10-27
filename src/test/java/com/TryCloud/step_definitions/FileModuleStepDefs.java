@@ -25,7 +25,7 @@ public class FileModuleStepDefs {
     @When("Click action-icon from any file on the page")
     public void click_action_icon_from_any_file_on_the_page() {
         modulesPage.clickActionIcon();
-     //   BrowserUtil.waitFor(1);
+
 
     }
 
