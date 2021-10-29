@@ -1,4 +1,4 @@
-@wip
+@smoke
 Feature:Login into TryCloud app
   As a user, I should be able to login.
 
@@ -14,9 +14,9 @@ Feature:Login into TryCloud app
     Examples:
       | username | password    |
       | user7    | Userpass123 |
-      | user37   | Userpass123 |
-      | user67   | Userpass123 |
-      | user97   | Userpass123 |
+   #   | user37   | Userpass123 |
+   #   | user67   | Userpass123 |
+   #   | user97   | Userpass123 |
 
 
   Scenario: User login with wrong credentials

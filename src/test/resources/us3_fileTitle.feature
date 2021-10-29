@@ -1,4 +1,4 @@
-@wip
+@smoke
 Feature:As a user, I should be able to access to Files module.
   3. Story: As a user, I should be able to access to Files module.
   AC#1 - verify users can access to Files module
@@ -27,6 +27,6 @@ Feature:As a user, I should be able to access to Files module.
     Examples:
       | username | password    |
       | user7    | Userpass123 |
-      | user37   | Userpass123 |
-      | user67   | Userpass123 |
-      | user97   | Userpass123 |
+   #   | user37   | Userpass123 |
+   #   | user67   | Userpass123 |
+    #  | user97   | Userpass123 |

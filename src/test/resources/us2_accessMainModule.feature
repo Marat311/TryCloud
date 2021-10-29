@@ -1,4 +1,4 @@
-@wip
+@smoke
 Feature:As a user, I should be access all the main modules of the app.
   2. Story: As a user, I should be access all the main modules of the app.
   AC#1 - verify users access to the main modules
@@ -37,6 +37,6 @@ Feature:As a user, I should be access all the main modules of the app.
     Examples:
       | username | password    |
       | user7    | Userpass123 |
-      | user37   | Userpass123 |
-      | user67   | Userpass123 |
-      | user97   | Userpass123 |
+   #   | user37   | Userpass123 |
+  #    | user67   | Userpass123 |
+   #   | user97   | Userpass123 |

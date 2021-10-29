@@ -9,9 +9,9 @@ import org.junit.runner.RunWith;
 // IT DOES NOTHING ELSE !
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        glue = "com/cydeo/step_definitions",
+        glue = "com/TryCloud/step_definitions",
         features = "@target/rerun.txt"
-//                   ,  tags = "@ui"
+       //           ,  tags = "@smoke"
 )
 public class FailedTestRunner {
 }

@@ -6,62 +6,102 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
+
+import java.net.URL;
 
 public class Driver {
 
-    //private static WebDriver driver;
-    private static InheritableThreadLocal<WebDriver> driverPool = new InheritableThreadLocal<>();
+    // private static WebDriver obj ;   singleton
+    private  static InheritableThreadLocal<WebDriver> driverPool=new InheritableThreadLocal<>();   // parallel
+
     private Driver(){ }
 
+    /**
+     * Return obj with only one WebDriver instance
+     * @return same WebDriver if exists , new one if null
+     */
     public static WebDriver getDriver(){
-        //read the browser type you want to lunch from properties files
-        String browserName = ConfigReader.read("browser");
+        // read the browser type you want to launch from properties file
+        //String browserName = ConfigReader.read("browser") ;
+        String browserName = System.getProperty("browser") != null ? browserName = System.getProperty("browser") : ConfigReader.read("browser");
 
-      //  if (driver==null) {
-        if(driverPool.get()==null){
+        // if(obj == null){   singleton
+        if(driverPool.get() == null){ //PARALLEL
 
-            switch (browserName.toLowerCase()){
+            // according to browser type set up driver correctly
+            switch (browserName ){
+                case "remote-chrome":
+                    try {
+                        // assign your grid server address
+                        String gridAddress = "54.235.53.73";
+                        URL url = new URL("http://"+ gridAddress + ":4444/wd/hub");
+                        DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
+                        desiredCapabilities.setBrowserName("chrome");
+                        driverPool.set(new RemoteWebDriver(url, desiredCapabilities));
+                        //driverPool.set(new RemoteWebDriver(new URL("http://0.0.0.0:4444/wd/hub"),desiredCapabilities));
 
-                case "chrome":
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case "chrome" :
                     WebDriverManager.chromedriver().setup();
-                   // driver=new ChromeDriver();
-                    driverPool.set(new ChromeDriver());
+                    //  obj = new ChromeDriver();  singleton
+                    driverPool.set(new ChromeDriver());  // parallel
                     break;
-                case "firefox":
+                case "firefox" :
                     WebDriverManager.firefoxdriver().setup();
-                    //driver=new FirefoxDriver();
-                    driverPool.set(new FirefoxDriver());
+                    // obj = new FirefoxDriver();  singleton
+                    driverPool.set(new FirefoxDriver()); // parallel
                     break;
-                case "safari":
-                    WebDriverManager.safaridriver().setup();
-                   // driver=new SafariDriver();
-                    driverPool.set(new SafariDriver());
-                    break;
-                case "edge":
-                    WebDriverManager.edgedriver().setup();
-                  //  driver=new EdgeDriver();
-                    driverPool.set(new EdgeDriver());
-                    break;
+                // other browsers omitted
                 default:
-                 //   driver=null;
-                    driverPool.set(null);
-                    System.out.println("UNKNOWN BROWSER TYPE!!! "+browserName);
+                    // obj = null ;  singleton
+                    driverPool.set(null);  // parallel
+                    System.out.println("UNKNOWN BROWSER TYPE!!! " + browserName);
             }
-           // return driver;
-        return driverPool.get();
-        }else {
-           // return driver;
-        return driverPool.get();
+            // return obj ; singleton
+            return driverPool.get(); // parallel
+
+
+
+        }else{
+//            System.out.println("You have it just use existing one");
+            // return obj ;  singleton
+            return driverPool.get(); // parallel
+
+
         }
+
     }
 
-
+    /**
+     * Quitting the browser and setting the value of
+     * WebDriver instance to null because you can re-use already quitted driver
+     */
     public static void closeBrowser(){
-        if (driverPool.get()!=null){
+
+        // check if we have WebDriver instance or not
+        // basically checking if obj is null or not
+        // if not null
+        // quit the browser
+        // make it null , because once quit it can not be used
+       /* if(obj != null ){   SINGLETON
+            obj.quit();
+            // so when ask for it again , it gives us not quited fresh driver
+            obj = null ;
+        }
+        */
+
+        if(driverPool.get() != null ){   //PARALLEL
             driverPool.get().quit();
+            // so when ask for it again , it gives us not quited fresh driver
             driverPool.set(null);
         }
+
     }
 
 }
