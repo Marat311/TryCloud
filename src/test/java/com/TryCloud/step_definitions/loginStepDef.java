@@ -36,7 +36,7 @@ CommonArea commonArea = new CommonArea();
     @Then("user should be at dashboard page")
     public void user_should_be_at_dashboard_page() {
 
-        assertEquals( "Dashboard - Trycloud", Driver.getDriver().getTitle());
+        assertEquals( "Dashboard - Trycloud QA", Driver.getDriver().getTitle());
     }
 
     @When("user provide username {string} and password {string}")

@@ -25,8 +25,9 @@ public class LoginPage {
     }
 
     public void goTo(){
-        Driver.getDriver().get(ConfigReader.read("tryCloudapp_url"));
-    }
+        Driver.getDriver().get(ConfigReader.read("url"));
+
+}
 
     public void login(String username,String password){
         this.username.sendKeys(username);
