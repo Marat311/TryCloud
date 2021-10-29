@@ -9,13 +9,13 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/resources", //alternatively "classpath:features"
         glue = "com/TryCloud/step_definitions",
-        plugin = {"pretty", "html:target/cucumber.html",
+        plugin = {"html:target/cucumber.html",
                 "json:target/cucumber.json", //this will generate json report
                 "rerun:target/rerun.txt",
                 "me.jvt.cucumber.report.PrettyReports:target" //this is for detailed html report
         },
         dryRun = false
-        , tags="@smoke"
+      //  , tags="@smoke"
 )
 
 public class TestRunner {
